@@ -1,4 +1,4 @@
 (ns dev
-  (:require [polydoc.config.interface :as config]))
-
-(config/get-config :environment)
+  (:require
+   [polydoc.config.interface :as config]
+   [polydoc.logger.interface :as logger]))
