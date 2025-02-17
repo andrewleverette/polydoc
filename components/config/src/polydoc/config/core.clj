@@ -29,12 +29,11 @@
          parse-config-str)))
 
 (defn- load-config []
-  (try
-    (read-env-file (get-env))
-    (catch Exception e
-      (println "Error loading config for environment:" (ex-message e))
-      (println "Error details:" (ex-cause e))
-      (throw e))))
+  (let [env (get-env)]
+    (try
+      (read-env-file env)
+      (catch Exception e
+        (throw (ex-info "Error loading config" {:env env} e))))))
 
 (def ^:private config
   "PolyDoc configuration map"
