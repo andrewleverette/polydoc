@@ -10,16 +10,21 @@
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU Affero General Public License for more details.
 
-(ns polydoc.config.interface
-  (:require [polydoc.config.core :as config]))
+;; You should have received a copy of the GNU Affero General Public License
+;; along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-(defn get-config
-  "Given a sequence of keys, return the value of the config at those keys.
-  Returns nil or default if not found."
-  ([ks] (config/get-config ks))
-  ([ks default] (config/get-config ks default)))
+(ns polydoc.datasource.interface
+  (:require [polydoc.datasource.core :as core]))
 
-(defn refresh
-  "Refresh the config"
-  []
-  (config/refresh))
+(defn create-datasource
+  [config]
+  (core/create-datasource config))
+
+(defn init
+  [ds]
+  (core/init ds))
+
+(defn get-datasource
+  "Returns the database datasource from the datasource component."
+  [ds]
+  (core/get-datasource ds))

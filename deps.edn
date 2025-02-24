@@ -1,10 +1,16 @@
-{:aliases  {:dev {:extra-paths ["development/src"]
+{:aliases  {:dev {:extra-paths ["development/src" "components/migrations/resources"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
                                poly/config {:local/root "components/config"}
-                               poly/logger {:local/root "components/logger"}}}
+                               poly/datasource {:local/root "components/datasource"}
+                               poly/logger {:local/root "components/logger"}
+                               poly/migrations {:local/root "components/migrations"}
+                               poly/migrations-cli {:local/root "bases/migrations-cli"}}}
 
             :test {:extra-paths []}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}}}
+                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
+            :migrations {:main-opts ["-m" "polydoc.migrations-cli.core"]
+                         :extra-deps {poly/polydoc-migrations {:local/root "projects/polydoc-migrations"}}}}}
+
