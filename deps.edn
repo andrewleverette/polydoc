@@ -1,11 +1,16 @@
 {:aliases  {:dev {:extra-paths ["development/src" "components/migrations/resources"]
 
                   :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
+
+                               ;; Components
                                poly/config {:local/root "components/config"}
                                poly/datasource {:local/root "components/datasource"}
                                poly/logger {:local/root "components/logger"}
                                poly/migrations {:local/root "components/migrations"}
-                               poly/migrations-cli {:local/root "bases/migrations-cli"}}}
+
+                               ;; Bases
+                               poly/migrations-cli {:local/root "bases/migrations-cli"}
+                               poly/srm-api {:local/root "bases/srm-api"}}}
 
             :test {:extra-paths []}
 
