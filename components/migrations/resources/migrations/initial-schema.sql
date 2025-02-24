@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS user_subscriptions (
     CONSTRAINT fk_user_subscriptions_users
         FOREIGN KEY (user_id)
         REFERENCES users(user_id)
-        ON DELETE CASCADE -- Cascade delete subscriptions if user is deleted
+        ON DELETE CASCADE
 );
 
 --;;
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS documents (
     CONSTRAINT fk_documents_users
         FOREIGN KEY (uploaded_by_user_id)
         REFERENCES users(user_id)
-        ON DELETE SET NULL  -- Or ON DELETE NO ACTION / RESTRICT, depending on your requirement when a user is deleted
+        ON DELETE SET NULL
 );
 
 --;;
@@ -103,7 +103,6 @@ CREATE TABLE IF NOT EXISTS user_roles (
     user_id UUID NOT NULL,
     role_id UUID NOT NULL,
     assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    -- Foreign key constraints
     CONSTRAINT fk_user_roles_users
         FOREIGN KEY (user_id)
         REFERENCES users(user_id)
@@ -112,7 +111,6 @@ CREATE TABLE IF NOT EXISTS user_roles (
         FOREIGN KEY (role_id)
         REFERENCES roles(role_id)
         ON DELETE CASCADE,
-    -- Unique constraint for user_id and role_id combination
     CONSTRAINT unique_user_role UNIQUE (user_id, role_id)
 );
 
@@ -145,16 +143,14 @@ CREATE TABLE IF NOT EXISTS document_metadata_values (
     value_data_type VARCHAR(20),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    -- Foreign key constraint for document_id
     CONSTRAINT fk_document_metadata_values_documents
         FOREIGN KEY (document_id)
         REFERENCES documents(document_id)
         ON DELETE CASCADE, -- Cascading delete when a document is deleted
-    -- Foreign key constraint for attribute_definition_id
     CONSTRAINT fk_document_metadata_values_metadata_attribute_definitions
         FOREIGN KEY (attribute_definition_id)
         REFERENCES metadata_attribute_definitions(attribute_definition_id)
-        ON DELETE CASCADE  -- Cascading delete if an attribute definition is deleted (consider if this is appropriate)
+        ON DELETE CASCADE
 );
 
 --;;
@@ -166,7 +162,6 @@ CREATE TABLE IF NOT EXISTS file_share_ingestion_sources (
     file_share_path TEXT,
     file_share_username VARCHAR(100),
     file_share_password VARCHAR(255),
-    -- One-to-one relationship with document_ingestion_sources
     CONSTRAINT fk_file_share_ingestion_sources_base
         FOREIGN KEY (ingestion_source_id)
         REFERENCES document_ingestion_sources(ingestion_source_id)
@@ -184,7 +179,6 @@ CREATE TABLE IF NOT EXISTS email_inbox_ingestion_sources (
     email_username VARCHAR(100),
     email_password VARCHAR(255),
     email_polling_interval_sec INTEGER,
-    -- One-to-one relationship with document_ingestion_sources
     CONSTRAINT fk_email_inbox_ingestion_sources_base
         FOREIGN KEY (ingestion_source_id)
         REFERENCES document_ingestion_sources(ingestion_source_id)
@@ -197,7 +191,6 @@ CREATE TABLE IF NOT EXISTS email_inbox_ingestion_sources (
 CREATE TABLE IF NOT EXISTS document_type_subscriptions (
     user_subscription_id UUID PRIMARY KEY,
     document_type_criteria VARCHAR(50),
-    -- One-to-one relationship with user_subscriptions
     CONSTRAINT fk_document_type_subscriptions_base
         FOREIGN KEY (user_subscription_id)
         REFERENCES user_subscriptions(user_subscription_id)
@@ -211,14 +204,12 @@ CREATE TABLE IF NOT EXISTS metadata_attribute_subscriptions (
     user_subscription_id UUID PRIMARY KEY,
     attribute_definition_id_criteria UUID,
     attribute_value_criteria TEXT,
-    -- One-to-one relationship with user_subscriptions
     CONSTRAINT fk_metadata_attribute_subscriptions_base
         FOREIGN KEY (user_subscription_id)
         REFERENCES user_subscriptions(user_subscription_id)
         ON DELETE CASCADE,
-    -- Foreign key to metadata_attribute_definitions
     CONSTRAINT fk_metadata_attribute_subscriptions_metadata_attribute_definitions
         FOREIGN KEY (attribute_definition_id_criteria)
         REFERENCES metadata_attribute_definitions(attribute_definition_id)
-        ON DELETE SET NULL -- Or RESTRICT/NO ACTION, depending on desired behavior if attribute definition is deleted
+        ON DELETE SET NULL
 );

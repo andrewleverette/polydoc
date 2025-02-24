@@ -10,4 +10,7 @@
             :test {:extra-paths []}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}}}
+                   :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
+            :migrations {:main-opts ["-m" "polydoc.migrations-cli.core"]
+                         :extra-deps {poly/polydoc-migrations {:local/root "projects/polydoc-migrations"}}}}}
+

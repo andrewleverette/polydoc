@@ -39,7 +39,6 @@
   datasource."
   (init [this] "Initializes the datasource component.")
   (get-datasource [this] "Returns the underlying database datasource.")
-  (get-config [this] "Returns the configuration used to create the datasource.")
   (stop [this] "Stops (halts) the datasource."))
 
 ;; JDBC Datasource adapter
@@ -53,7 +52,6 @@
         (assoc this :datasource ds))
       this))
   (get-datasource [_] datasource)
-  (get-config [_] config)
   (stop [this]
     (assoc this :datasource nil)))
 

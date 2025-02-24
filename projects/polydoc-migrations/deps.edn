@@ -1,0 +1,8 @@
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        polydoc/config {:local/root "../../components/config"}
+        polydoc/logger {:local/root "../../components/logger"}
+        polydoc/datasource {:local/root "../../components/datasource"}
+        polydoc/migrations {:local/root "../../components/migrations"}
+        polydoc/migrations-cli {:local/root "../../bases/migrations-cli"}}
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}}}

@@ -1,9 +1,7 @@
 (ns dev
   (:require
    [integrant.core :as ig]
-   [polydoc.config.interface :as c]
-   [polydoc.logger.interface :as l]
-   [polydoc.migrations.interface :as m]))
+   [polydoc.config.interface :as c]))
 
 (comment
   (c/refresh)
@@ -14,7 +12,5 @@
 
   (def migrations (:polydoc/migrations system))
   migrations
-
-  (m/init-schema migrations)
 
   (ig/halt! system))
