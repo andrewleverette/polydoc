@@ -26,7 +26,8 @@
 
 (defn init-schema!
   "Applies the initial database schema."
-  [this])
+  [this]
+  (core/init-schema! this))
 
 (defn migrate!
   "Runs all pending migrations."
