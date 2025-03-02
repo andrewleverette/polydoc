@@ -6,6 +6,7 @@
                                poly/config {:local/root "components/config"}
                                poly/database {:local/root "components/database"}
                                poly/datasource {:local/root "components/datasource"}
+                               poly/documents {:local/root "components/documents"}
                                poly/logger {:local/root "components/logger"}
                                poly/migrations {:local/root "components/migrations"}
 

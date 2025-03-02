@@ -29,7 +29,7 @@
 
 (defprotocol Database
   "Interface for executing queries against a datasource."
-  (execute! [this query] "Executes a SQL query provided as a map and returns the result."))
+  (execute! [this query] "Executes a query provided as a map and returns the result."))
 
 (defrecord SqlDatabase [datasource]
   Database

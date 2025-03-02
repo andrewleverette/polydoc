@@ -2,7 +2,7 @@
   (:require
    [integrant.core :as ig]
    [polydoc.config.interface :as c]
-   [polydoc.database.interface :as q]))
+   [polydoc.documents.interface :as docs]))
 
 (comment
   (c/refresh)
@@ -12,11 +12,12 @@
   (def system (ig/init config))
   system
 
-  (def db (:polydoc/database system))
+  (def dbi (:polydoc/database system))
 
-  db
+  (def docs-repo (docs/create-document-repository :sql dbi))
 
-  (q/execute! db {:select [:*]
-                  :from [:roles]})
+  ; (def grouped-results (docs/get-document-by-id docs-repo "1a2b3c4d-e5f6-4789-90ab-cdef01234567"))
+
+  (docs/search-documents docs-repo {:file-type "pdf"})
 
   (ig/halt! system))
