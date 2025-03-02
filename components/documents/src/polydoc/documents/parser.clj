@@ -71,7 +71,7 @@
   Returns a list of document objects with their summary metadata attributes"
   [results]
   (let [grouped (group-records-by-document-id results)]
-    (mapv (fn [[document-id records]] (parse-document-object document-id :documents/metadataAttributes records)) grouped)))
+    (mapv (fn [[document-id records]] (parse-document-object document-id :documents/summary-metadata-attributes records)) grouped)))
 
 (defn parse-document-result
   "Parses a document result set
@@ -81,7 +81,7 @@
   (let [grouped (group-records-by-document-id results)]
     (if (= 1 (count grouped))
       (let [[document-id records] (first grouped)]
-        (parse-document-object document-id :documents/metadataAttributes records))
+        (parse-document-object document-id :documents/metadata-attributes records))
       (throw (ex-info "Document result set contains multiple document UUIDs" {:results results})))))
 
 (defmulti parse-query-params

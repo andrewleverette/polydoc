@@ -19,10 +19,15 @@
   "Searches for documents
   
   Returns a list of document objects that match the search criteria"
-  [db params]
-  (core/search-documents db params))
+  [repository params]
+  (core/search-documents repository params))
+
+(defn search-documents-count
+  "Counts the number of documents that match the search criteria"
+  [repository params]
+  (core/search-documents-count repository params))
 
 (defn get-document-by-id
   "Retrieves a document by its UUID"
-  [db id]
-  (core/get-document-by-id db id))
+  [repository id]
+  (core/get-document-by-id repository id))
