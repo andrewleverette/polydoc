@@ -1,5 +1,4 @@
 {:paths ["src" "resources"]
- :deps {metosin/muuntaja {:mvn/version "0.6.11"}
-        metosin/reitit {:mvn/version "0.8.0-alpha1"}}
+ :deps {ring/ring-jetty-adapter {:mvn/version "1.13.0"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

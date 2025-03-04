@@ -8,7 +8,12 @@
 ;; You must not remove this notice, or any other, from this software.
 
 (ns polydoc.documents.core
-  (:require [polydoc.documents.repository :as repo]))
+  (:require
+   [integrant.core :as ig]
+   [polydoc.logger.interface :as l]
+   [polydoc.documents.repository :as repo]))
+
+(def document-repository-component-key :polydoc/documents)
 
 (defmulti create-document-repository
   (fn [tag _] tag))
@@ -26,3 +31,7 @@
 (defn get-document-by-id
   [repository id]
   (repo/get-document-by-id repository id))
+
+(defmethod ig/init-key document-repository-component-key [_ {:keys [tag db]}]
+  (l/info "Creating document repository")
+  (create-document-repository tag db))

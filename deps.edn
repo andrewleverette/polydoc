@@ -9,6 +9,7 @@
                                poly/documents {:local/root "components/documents"}
                                poly/logger {:local/root "components/logger"}
                                poly/migrations {:local/root "components/migrations"}
+                               poly/webserver {:local/root "components/webserver"}
 
                                ;; Bases
                                poly/migrations-cli {:local/root "bases/migrations-cli"}

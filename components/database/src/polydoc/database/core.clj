@@ -17,7 +17,7 @@
    [polydoc.logger.interface :as l]))
 
 ;; Component key
-(def query-engine-component-key :polydoc/database)
+(def database-component-key :polydoc/database)
 
 (defn parse-query
   [query]
@@ -35,9 +35,9 @@
   Database
   (execute! [_ query]
     (try
-      (let [paresed-query (parse-query query)]
-        (l/info "Executing query" {:query paresed-query})
-        (jdbc/execute! datasource paresed-query))
+      (let [parsed-query (parse-query query)]
+        (l/info "Executing query" {:query parsed-query})
+        (jdbc/execute! datasource parsed-query))
       (catch Exception e
         (l/error "Error executing query" {:cause e :query query})))))
 
@@ -45,10 +45,10 @@
   [datasource]
   (->SqlDatabase datasource))
 
-(defmethod ig/init-key query-engine-component-key [_ datasource]
+(defmethod ig/init-key database-component-key [_ datasource]
   (l/info "Initializing query engine component...")
   (create-database datasource))
 
-(defmethod ig/halt-key! query-engine-component-key [_ query-engine]
+(defmethod ig/halt-key! database-component-key [_ query-engine]
   (l/info "Shutting down query engine component...")
   (assoc query-engine :datasource nil))

@@ -7,7 +7,9 @@
 
 ;; You must not remove this notice, or any other, from this software.
 
-(ns polydoc.documents.parser)
+(ns polydoc.documents.parser
+  (:require
+   [polydoc.logger.interface :as l]))
 
 (def document-keys
   [:documents/document_id
@@ -22,8 +24,7 @@
    :documents/updated_at])
 
 (def document-metadata-value-keys
-  [:document_metadata_values/document_id
-   :document_metadata_values/value_data_type
+  [:document_metadata_values/value_data_type
    :document_metadata_values/attribute_definition_id
    :document_metadata_values/attribute_value
    :document_metadata_values/created_at
@@ -78,8 +79,9 @@
 
   Returns a document object with all its metadata attributes"
   [results]
+  (l/info "Parsing document result set" {:results results})
   (let [grouped (group-records-by-document-id results)]
-    (if (= 1 (count grouped))
+    (if (<= 1 (count grouped))
       (let [[document-id records] (first grouped)]
         (parse-document-object document-id :documents/metadata-attributes records))
       (throw (ex-info "Document result set contains multiple document UUIDs" {:results results})))))
