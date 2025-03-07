@@ -29,8 +29,7 @@
   (get-document-by-id [_ id]
     (let [flat-results (db/execute! db {:select [:*]
                                         :from [[:documents :d]]
-                                        :left-join [[:users :u] [:= :d.uploaded_by_user_id :u.user_id]
-                                                    [:document_metadata_values :dmv] [:= :d.document_id :dmv.document_id]]
+                                        :left-join [[:document_metadata_values :dmv] [:= :d.document_id :dmv.document_id]]
                                         :where [:= :d.document_id [:uuid id]]})]
       (parser/parse-document-result flat-results))))
 
